@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+<title>Flask Microwebsite</title>
+{% endblock %}
+
+{% block body %}
+<div class="content" style="text-align: center;">
+    <h1 style="text-align: center;">Task Master</h1>
+    {% if tasks|length == 0 %}
+    <h4> no tasks left now </h4>
+    {% else %}
+    <style>
+        table, th, td {
+          border: 1px solid black;
+          width: 30%;
+        }
+        </style>
+
+    <table align="center">
+        <tr>
+            <th>Task</th>
+            <th>Added</th>
+            <th>Actions</th>
+        </tr>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.content }}</td>
+                <td>{{ task.date_created.date() }}</td>
+                <td>
+                    <a href="/delete/{{task.id}}">Delete</a>
+                    <br>
+                    <a href="/update/{{task.id}}">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <form action="/" method="POST">
+        <input type="text" name="content" id="content">
+        <input type="submit" value="Add Task">
+    
+    </form>
+
+</div>
+{% endblock %}
